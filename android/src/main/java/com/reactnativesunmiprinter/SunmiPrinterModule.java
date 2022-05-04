@@ -385,10 +385,7 @@ public class SunmiPrinterModule extends ReactContextBaseJavaModule {
     final String pureBase64Encoded = encodedString.substring(encodedString.indexOf(",")  + 1);
     final byte[] decodedBytes = Base64.decode(pureBase64Encoded, Base64.DEFAULT);
     Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
-    int w = decodedBitmap.getWidth();
-    Integer h = decodedBitmap.getHeight();
-    Bitmap scaledImage = Bitmap.createScaledBitmap(decodedBitmap, pixelWidth, (pixelWidth / w) * h, false);
-    printerService.printBitmap(scaledImage, innerResultCallback);
+    printerService.printBitmap(decodedBitmap, innerResultCallback);
   }
 
   /**
