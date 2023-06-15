@@ -67,9 +67,11 @@ public class SunmiScanModule extends ReactContextBaseJavaModule {
       if (ACTION_DATA_CODE_RECEIVED.equals(action)) {
         String code = intent.getStringExtra(DATA);
         byte[] arr = intent.getByteArrayExtra(SOURCE);
-        String hex = encodeHex(arr);
-        if (hex != null && !hex.isEmpty()) {
-          sendEvent(hex);
+        // if (arr != null) {
+          sendEventHex(arr);
+        // }
+        if (code != null && !code.isEmpty()) {
+          sendEvent(code);
         }
       }
     }
@@ -131,5 +133,9 @@ public class SunmiScanModule extends ReactContextBaseJavaModule {
 
   private static void sendEvent(String msg) {
     reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onScanSuccess", msg);
+  }
+
+  private static void sendEventHex(byte[] msg) {
+    reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onScanSuccessHex", msg);
   }
 }
